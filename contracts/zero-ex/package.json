@@ -33,6 +33,7 @@
         "test:circleci": "yarn test",
         "contracts:gen": "contracts-gen generate",
         "contracts:copy": "contracts-gen copy",
+        "lint-staged": "lint-staged",  
         "lint-contracts": "#solhint -c ../.solhint.json contracts/**/**/**/**/*.sol",
         "compile:truffle": "truffle compile",
         "docs:md": "ts-doc-gen --sourceDir='$PROJECT_FILES' --output=$MD_FILE_DIR --fileExtension=mdx --tsconfig=./typedoc-tsconfig.json",
@@ -40,6 +41,9 @@
         "publish:private": "yarn build && gitpkg publish",
         "rollback": "node ./lib/scripts/rollback.js",
         "typechain": "typechain --target=ethers-v5 --out-dir='typechain-wrappers'  './foundry-artifacts/**/*.json'"
+    },
+    "lint-staged": {
+        "*.sol": "forge fmt"
     },
     "config": {
         "publicInterfaceContracts": "IZeroEx,ZeroEx,FullMigration,InitialMigration,IFlashWallet,IERC20Transformer,IOwnableFeature,ISimpleFunctionRegistryFeature,ITransformERC20Feature,FillQuoteTransformer,PayTakerTransformer,PositiveSlippageFeeTransformer,WethTransformer,OwnableFeature,SimpleFunctionRegistryFeature,TransformERC20Feature,AffiliateFeeTransformer,MetaTransactionsFeature,LogMetadataTransformer,LiquidityProviderFeature,ILiquidityProviderFeature,NativeOrdersFeature,INativeOrdersFeature,FeeCollectorController,FeeCollector,CurveLiquidityProvider,BatchFillNativeOrdersFeature,IBatchFillNativeOrdersFeature,MultiplexFeature,IMultiplexFeature,OtcOrdersFeature,IOtcOrdersFeature,AvalancheBridgeAdapter,BSCBridgeAdapter,CeloBridgeAdapter,EthereumBridgeAdapter,FantomBridgeAdapter,OptimismBridgeAdapter,PolygonBridgeAdapter",
@@ -72,6 +76,7 @@
         "@types/mocha": "^5.2.7",
         "@types/prompts": "^2.0.9",
         "isomorphic-fetch": "^3.0.0",
+        "lint-staged": "^13.0.3",
         "lodash": "^4.17.11",
         "mocha": "^6.2.0",
         "npm-run-all": "^4.1.2",
