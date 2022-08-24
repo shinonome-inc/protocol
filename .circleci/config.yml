@@ -89,6 +89,7 @@ jobs:
                       - repo-{{ .Environment.CIRCLE_SHA1 }}
             # - run: forge install
             - run: forge test
+            - run: forge fmt --check
     test-publish:
         resource_class: large
         environment:
