@@ -163,7 +163,7 @@ contract OtcBridgeSettlement is
         transformations[1].data = abi.encode(getBridgeOrder(fqtData));
 
 
-        fillOrder(transformations);
+        //fillOrder(transformations);
     } 
 
     function getBridgeOrder( FillQuoteTransformer.TransformData memory fqtData) public returns (FillQuoteTransformer.TransformData memory _data){
