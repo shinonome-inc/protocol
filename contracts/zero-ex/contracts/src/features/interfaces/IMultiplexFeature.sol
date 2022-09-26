@@ -18,10 +18,10 @@
 */
 
 pragma solidity ^0.6.5;
+
 pragma experimental ABIEncoderV2;
 
 import "@0x/contracts-erc20/contracts/src/v06/IERC20TokenV06.sol";
-
 
 interface IMultiplexFeature {
     // Identifies the type of subcall.
@@ -125,10 +125,7 @@ interface IMultiplexFeature {
         IERC20TokenV06 outputToken,
         BatchSellSubcall[] calldata calls,
         uint256 minBuyAmount
-    )
-        external
-        payable
-        returns (uint256 boughtAmount);
+    ) external payable returns (uint256 boughtAmount);
 
     /// @dev Sells `sellAmount` of the given `inputToken` for ETH
     ///      using the provided calls.
@@ -143,9 +140,7 @@ interface IMultiplexFeature {
         BatchSellSubcall[] calldata calls,
         uint256 sellAmount,
         uint256 minBuyAmount
-    )
-        external
-        returns (uint256 boughtAmount);
+    ) external returns (uint256 boughtAmount);
 
     /// @dev Sells `sellAmount` of the given `inputToken` for
     ///      `outputToken` using the provided calls.
@@ -162,9 +157,7 @@ interface IMultiplexFeature {
         BatchSellSubcall[] calldata calls,
         uint256 sellAmount,
         uint256 minBuyAmount
-    )
-        external
-        returns (uint256 boughtAmount);
+    ) external returns (uint256 boughtAmount);
 
     /// @dev Sells attached ETH via the given sequence of tokens
     ///      and calls. `tokens[0]` must be WETH.
@@ -181,10 +174,7 @@ interface IMultiplexFeature {
         address[] calldata tokens,
         MultiHopSellSubcall[] calldata calls,
         uint256 minBuyAmount
-    )
-        external
-        payable
-        returns (uint256 boughtAmount);
+    ) external payable returns (uint256 boughtAmount);
 
     /// @dev Sells `sellAmount` of the input token (`tokens[0]`)
     ///      for ETH via the given sequence of tokens and calls.
@@ -201,9 +191,7 @@ interface IMultiplexFeature {
         MultiHopSellSubcall[] calldata calls,
         uint256 sellAmount,
         uint256 minBuyAmount
-    )
-        external
-        returns (uint256 boughtAmount);
+    ) external returns (uint256 boughtAmount);
 
     /// @dev Sells `sellAmount` of the input token (`tokens[0]`)
     ///      via the given sequence of tokens and calls.
@@ -221,7 +209,5 @@ interface IMultiplexFeature {
         MultiHopSellSubcall[] calldata calls,
         uint256 sellAmount,
         uint256 minBuyAmount
-    )
-        external
-        returns (uint256 boughtAmount);
+    ) external returns (uint256 boughtAmount);
 }

@@ -19,176 +19,71 @@
 
 pragma solidity ^0.6.5;
 
-
 library LibNFTOrdersRichErrors {
-
     // solhint-disable func-name-mixedcase
 
-    function OverspentEthError(
-        uint256 ethSpent,
-        uint256 ethAvailable
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
+    function OverspentEthError(uint256 ethSpent, uint256 ethAvailable) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(bytes4(keccak256("OverspentEthError(uint256,uint256)")), ethSpent, ethAvailable);
+    }
+
+    function InsufficientEthError(uint256 ethAvailable, uint256 orderAmount) internal pure returns (bytes memory) {
         return abi.encodeWithSelector(
-            bytes4(keccak256("OverspentEthError(uint256,uint256)")),
-            ethSpent,
-            ethAvailable
+            bytes4(keccak256("InsufficientEthError(uint256,uint256)")), ethAvailable, orderAmount
         );
     }
 
-    function InsufficientEthError(
-        uint256 ethAvailable,
-        uint256 orderAmount
-    )
+    function ERC721TokenMismatchError(address token1, address token2) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(bytes4(keccak256("ERC721TokenMismatchError(address,address)")), token1, token2);
+    }
+
+    function ERC1155TokenMismatchError(address token1, address token2) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(bytes4(keccak256("ERC1155TokenMismatchError(address,address)")), token1, token2);
+    }
+
+    function ERC20TokenMismatchError(address token1, address token2) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(bytes4(keccak256("ERC20TokenMismatchError(address,address)")), token1, token2);
+    }
+
+    function NegativeSpreadError(uint256 sellOrderAmount, uint256 buyOrderAmount)
         internal
         pure
         returns (bytes memory)
     {
         return abi.encodeWithSelector(
-            bytes4(keccak256("InsufficientEthError(uint256,uint256)")),
-            ethAvailable,
-            orderAmount
+            bytes4(keccak256("NegativeSpreadError(uint256,uint256)")), sellOrderAmount, buyOrderAmount
         );
     }
 
-    function ERC721TokenMismatchError(
-        address token1,
-        address token2
-    )
+    function SellOrderFeesExceedSpreadError(uint256 sellOrderFees, uint256 spread)
         internal
         pure
         returns (bytes memory)
     {
         return abi.encodeWithSelector(
-            bytes4(keccak256("ERC721TokenMismatchError(address,address)")),
-            token1,
-            token2
+            bytes4(keccak256("SellOrderFeesExceedSpreadError(uint256,uint256)")), sellOrderFees, spread
         );
     }
 
-    function ERC1155TokenMismatchError(
-        address token1,
-        address token2
-    )
+    function OnlyTakerError(address sender, address taker) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(bytes4(keccak256("OnlyTakerError(address,address)")), sender, taker);
+    }
+
+    function InvalidSignerError(address maker, address signer) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(bytes4(keccak256("InvalidSignerError(address,address)")), maker, signer);
+    }
+
+    function OrderNotFillableError(address maker, uint256 nonce, uint8 orderStatus)
         internal
         pure
         returns (bytes memory)
     {
         return abi.encodeWithSelector(
-            bytes4(keccak256("ERC1155TokenMismatchError(address,address)")),
-            token1,
-            token2
+            bytes4(keccak256("OrderNotFillableError(address,uint256,uint8)")), maker, nonce, orderStatus
         );
     }
 
-    function ERC20TokenMismatchError(
-        address token1,
-        address token2
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(
-            bytes4(keccak256("ERC20TokenMismatchError(address,address)")),
-            token1,
-            token2
-        );
-    }
-
-    function NegativeSpreadError(
-        uint256 sellOrderAmount,
-        uint256 buyOrderAmount
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(
-            bytes4(keccak256("NegativeSpreadError(uint256,uint256)")),
-            sellOrderAmount,
-            buyOrderAmount
-        );
-    }
-
-    function SellOrderFeesExceedSpreadError(
-        uint256 sellOrderFees,
-        uint256 spread
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(
-            bytes4(keccak256("SellOrderFeesExceedSpreadError(uint256,uint256)")),
-            sellOrderFees,
-            spread
-        );
-    }
-
-    function OnlyTakerError(
-        address sender,
-        address taker
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(
-            bytes4(keccak256("OnlyTakerError(address,address)")),
-            sender,
-            taker
-        );
-    }
-
-    function InvalidSignerError(
-        address maker,
-        address signer
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(
-            bytes4(keccak256("InvalidSignerError(address,address)")),
-            maker,
-            signer
-        );
-    }
-
-    function OrderNotFillableError(
-        address maker,
-        uint256 nonce,
-        uint8 orderStatus
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(
-            bytes4(keccak256("OrderNotFillableError(address,uint256,uint8)")),
-            maker,
-            nonce,
-            orderStatus
-        );
-    }
-
-    function TokenIdMismatchError(
-        uint256 tokenId,
-        uint256 orderTokenId
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodeWithSelector(
-            bytes4(keccak256("TokenIdMismatchError(uint256,uint256)")),
-            tokenId,
-            orderTokenId
-        );
+    function TokenIdMismatchError(uint256 tokenId, uint256 orderTokenId) internal pure returns (bytes memory) {
+        return abi.encodeWithSelector(bytes4(keccak256("TokenIdMismatchError(uint256,uint256)")), tokenId, orderTokenId);
     }
 
     function PropertyValidationFailedError(
@@ -197,11 +92,7 @@ library LibNFTOrdersRichErrors {
         uint256 tokenId,
         bytes memory propertyData,
         bytes memory errorData
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
+    ) internal pure returns (bytes memory) {
         return abi.encodeWithSelector(
             bytes4(keccak256("PropertyValidationFailedError(address,address,uint256,bytes,bytes)")),
             propertyValidator,
@@ -212,18 +103,13 @@ library LibNFTOrdersRichErrors {
         );
     }
 
-    function ExceedsRemainingOrderAmount(
-        uint128 remainingOrderAmount,
-        uint128 fillAmount
-    )
+    function ExceedsRemainingOrderAmount(uint128 remainingOrderAmount, uint128 fillAmount)
         internal
         pure
         returns (bytes memory)
     {
         return abi.encodeWithSelector(
-            bytes4(keccak256("ExceedsRemainingOrderAmount(uint128,uint128)")),
-            remainingOrderAmount,
-            fillAmount
+            bytes4(keccak256("ExceedsRemainingOrderAmount(uint128,uint128)")), remainingOrderAmount, fillAmount
         );
     }
 }

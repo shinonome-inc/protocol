@@ -18,6 +18,7 @@
 */
 
 pragma solidity ^0.6.5;
+
 pragma experimental ABIEncoderV2;
 
 import "@0x/contracts-erc20/contracts/src/v06/LibERC20TokenV06.sol";
@@ -32,7 +33,7 @@ interface IVelodromeRouter {
         bool stable,
         address to,
         uint256 deadline
-    ) external returns (uint256[] memory amounts); 
+    ) external returns (uint256[] memory amounts);
 }
 
 contract MixinVelodrome {
@@ -43,22 +44,12 @@ contract MixinVelodrome {
         IERC20TokenV06 buyToken,
         uint256 sellAmount,
         bytes memory bridgeData
-    )
-        internal
-        returns (uint256 boughtAmount)
-    {
-
+    ) internal returns (uint256 boughtAmount) {
         (IVelodromeRouter router, bool stable) = abi.decode(bridgeData, (IVelodromeRouter, bool));
         sellToken.approveIfBelow(address(router), sellAmount);
 
         boughtAmount = router.swapExactTokensForTokensSimple(
-            sellAmount,
-            0, 
-            address(sellToken),
-            address(buyToken),
-            stable,
-            address(this),
-            block.timestamp + 1
+            sellAmount, 0, address(sellToken), address(buyToken), stable, address(this), block.timestamp + 1
         )[1];
     }
 }

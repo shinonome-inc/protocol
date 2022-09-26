@@ -18,28 +18,24 @@
 */
 
 pragma solidity ^0.6.5;
+
 pragma experimental ABIEncoderV2;
 
 import "@0x/contracts-erc20/contracts/src/v06/LibERC20TokenV06.sol";
 import "@0x/contracts-erc20/contracts/src/v06/IERC20TokenV06.sol";
 import "../IBridgeAdapter.sol";
 
-
 interface IMStable {
-
     function swap(
         IERC20TokenV06 sellToken,
         IERC20TokenV06 buyToken,
         uint256 sellAmount,
         uint256 minBoughtAmount,
         address recipient
-    )
-        external
-        returns (uint256 boughtAmount);
+    ) external returns (uint256 boughtAmount);
 }
 
 contract MixinMStable {
-
     using LibERC20TokenV06 for IERC20TokenV06;
 
     function _tradeMStable(
@@ -47,10 +43,7 @@ contract MixinMStable {
         IERC20TokenV06 buyToken,
         uint256 sellAmount,
         bytes memory bridgeData
-    )
-        internal
-        returns (uint256 boughtAmount)
-    {
+    ) internal returns (uint256 boughtAmount) {
         (IMStable mstable) = abi.decode(bridgeData, (IMStable));
 
         // Grant an allowance to the exchange to spend `sellToken` token.
