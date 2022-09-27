@@ -48,7 +48,8 @@ library LibERC20Transformer {
         internal
     {
         if (isTokenETH(token)) {
-            to.transfer(amount);
+            (bool sent,) = to.call{value: amount}("");
+            require(sent, "LibERC20Transformer/FAILED_TO_SEND_ETHER");
         } else {
             token.compatTransfer(to, amount);
         }
