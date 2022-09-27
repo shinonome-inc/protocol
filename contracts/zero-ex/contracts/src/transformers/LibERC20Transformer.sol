@@ -36,11 +36,12 @@ library LibERC20Transformer {
     ///      This is just `keccak256('TRANSFORMER_SUCCESS')`.
     bytes4 constant internal TRANSFORMER_SUCCESS = 0x13c9929e;
 
-    /// @dev Transfer ERC20 tokens and ETH.
+    /// @dev Transfer ERC20 tokens and ETH. For ETH transfer, it's not safe from re-entrancy attacks and the
+    // caller is responsible for gurading against a potential re-entrancy attack.
     /// @param token An ERC20 or the ETH pseudo-token address (`ETH_TOKEN_ADDRESS`).
     /// @param to The recipient.
     /// @param amount The transfer amount.
-    function transformerTransfer(
+    function unsafeTransformerTransfer(
         IERC20TokenV06 token,
         address payable to,
         uint256 amount

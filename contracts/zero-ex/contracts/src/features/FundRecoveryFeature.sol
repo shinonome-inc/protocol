@@ -59,7 +59,7 @@ contract FundRecoveryFeature is
         if(amountOut == uint256(-1)) {
             amountOut = LibERC20Transformer.getTokenBalanceOf(erc20, address(this));
         }
-        LibERC20Transformer.transformerTransfer(erc20, recipientWallet, amountOut);
+        LibERC20Transformer.unsafeTransformerTransfer(erc20, recipientWallet, amountOut);
     }
 
     
